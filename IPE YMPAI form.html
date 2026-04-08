@@ -1,0 +1,732 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>YMPAI DASS-Y | Asesmen Kesehatan Mental Remaja</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: linear-gradient(145deg, #e0eaf4 0%, #cfdef3 100%);
+            font-family: 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+            padding: 2rem 1.5rem;
+            color: #1a2c3e;
+        }
+
+        .dass-container {
+            max-width: 1100px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.96);
+            border-radius: 2rem;
+            box-shadow: 0 25px 45px -12px rgba(0, 0, 0, 0.35);
+            overflow: hidden;
+        }
+
+        .header {
+            background: #1f4b6e;
+            padding: 1.8rem 2rem;
+            color: white;
+        }
+
+        .header h1 {
+            font-size: 2rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: rgba(255,255,240,0.15);
+            padding: 0.3rem 1rem 0.3rem 1.2rem;
+            border-radius: 60px;
+        }
+
+        .brand span:first-child {
+            font-weight: 800;
+            font-size: 1.3rem;
+        }
+
+        .brand span:last-child {
+            background: #ffcd94;
+            color: #134b6b;
+            padding: 0.2rem 0.7rem;
+            border-radius: 40px;
+            font-size: 0.75rem;
+            font-weight: 700;
+        }
+
+        .header h1 span.badge {
+            background: #ffb74d;
+            font-size: 0.85rem;
+            font-weight: 600;
+            padding: 0.3rem 1rem;
+            border-radius: 40px;
+            color: #0e3a52;
+        }
+
+        .sub {
+            margin-top: 0.8rem;
+            opacity: 0.9;
+            font-size: 0.95rem;
+            border-left: 3px solid #ffb74d;
+            padding-left: 1rem;
+        }
+
+        .info-note {
+            background: #eef4fc;
+            margin: 1.2rem 2rem 0 2rem;
+            padding: 0.9rem 1.4rem;
+            border-radius: 32px;
+            font-size: 0.85rem;
+            color: #1f5e7e;
+            border-left: 6px solid #ffa559;
+        }
+
+        .progress-wrap {
+            padding: 1rem 2rem 0;
+        }
+
+        .progress-bar-bg {
+            background: #dde8f4;
+            border-radius: 20px;
+            height: 8px;
+            overflow: hidden;
+        }
+
+        .progress-bar-fill {
+            background: linear-gradient(90deg, #1f6e8c, #ffb74d);
+            height: 100%;
+            border-radius: 20px;
+            width: 0%;
+            transition: width 0.4s ease;
+        }
+
+        .progress-label {
+            font-size: 0.78rem;
+            color: #5a7a96;
+            margin-top: 0.4rem;
+            text-align: right;
+        }
+
+        .questions-area {
+            padding: 1.4rem 2rem 2rem 2rem;
+        }
+
+        .section-caption {
+            font-weight: 700;
+            font-size: 1.3rem;
+            margin-bottom: 1.5rem;
+            border-left: 6px solid #ff9f4a;
+            padding-left: 1rem;
+            color: #134b6b;
+        }
+
+        .question-card {
+            background: white;
+            border-radius: 1.8rem;
+            margin-bottom: 1rem;
+            padding: 1.2rem 1.5rem;
+            border: 1px solid #e4f0f9;
+            transition: all 0.2s ease;
+        }
+
+        .question-card:hover {
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.06);
+            transform: translateY(-2px);
+        }
+
+        .question-card.answered {
+            border-color: #a8d1e7;
+            background: #f5fbff;
+        }
+
+        .question-text {
+            font-weight: 700;
+            font-size: 1rem;
+            margin-bottom: 0.9rem;
+            color: #0c3f58;
+        }
+
+        .rating-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.8rem;
+            align-items: center;
+        }
+
+        .rating-option {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: #fafdff;
+            padding: 8px 18px;
+            border-radius: 100px;
+            cursor: pointer;
+            border: 1px solid #d4e3ef;
+        }
+
+        .rating-option.selected {
+            background: #e7f0fa;
+            border-color: #1f6e8c;
+            box-shadow: 0 4px 10px rgba(31,110,140,0.15);
+        }
+
+        input[type="radio"] {
+            accent-color: #1f6e8c;
+            width: 18px;
+            height: 18px;
+            cursor: pointer;
+        }
+
+        .rating-label {
+            font-weight: 600;
+            font-size: 0.85rem;
+            cursor: pointer;
+            color: #1a4c6c;
+        }
+
+        .action-bar {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 1rem;
+            margin: 0.5rem 2rem 1rem;
+        }
+
+        button {
+            background: #1f6e8c;
+            border: none;
+            padding: 0.8rem 2rem;
+            border-radius: 80px;
+            font-weight: 700;
+            font-size: 0.95rem;
+            color: white;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        button.secondary { background: #4f7b9c; }
+        button.danger { background: #c0392b; }
+        button:hover { background: #0e5775; transform: translateY(-2px); }
+        button.secondary:hover { background: #3f627f; }
+        button.danger:hover { background: #a93226; }
+
+        .results-panel {
+            background: #f4f9ff;
+            margin: 0.5rem 2rem;
+            border-radius: 1.6rem;
+            padding: 1.4rem 1.8rem;
+            border-top: 5px solid #ffb74d;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .score-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+            margin-bottom: 1.2rem;
+        }
+
+        .score-card {
+            flex: 1;
+            background: white;
+            border-radius: 1.2rem;
+            padding: 1rem;
+            text-align: center;
+            border: 1px solid #dce9f2;
+        }
+
+        .score-value {
+            font-size: 2.2rem;
+            font-weight: 800;
+            color: #1f6e8c;
+        }
+
+        .interpretation {
+            background: #e9f2f9;
+            padding: 1rem;
+            border-radius: 1.2rem;
+            font-size: 0.9rem;
+        }
+
+        .counseling-pathway {
+            background: linear-gradient(135deg, #eef3fc 0%, #e6f0f7 100%);
+            margin: 1rem 2rem 2rem 2rem;
+            border-radius: 1.8rem;
+            padding: 1.8rem 2rem;
+            border: 1px solid #d4e5f0;
+        }
+
+        .counseling-title {
+            font-weight: 800;
+            font-size: 1.4rem;
+            color: #0f4968;
+            margin-bottom: 1.5rem;
+            border-left: 5px solid #ff9f4a;
+            padding-left: 1rem;
+        }
+
+        .step-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.2rem;
+            margin-bottom: 1.8rem;
+            justify-content: center;
+        }
+
+        .step {
+            flex: 1;
+            min-width: 180px;
+            background: white;
+            border-radius: 1.2rem;
+            padding: 1.2rem 0.8rem;
+            text-align: center;
+            border: 1px solid #e0edf5;
+            transition: transform 0.2s;
+        }
+
+        .step:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+        }
+
+        .step-number {
+            background: #ffb74d;
+            width: 38px;
+            height: 38px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 40px;
+            font-weight: 800;
+            margin-bottom: 0.8rem;
+            color: #1f3b4c;
+        }
+
+        .step strong {
+            display: block;
+            margin: 0.6rem 0 0.4rem;
+            font-size: 1rem;
+            color: #1f4b6e;
+        }
+
+        .step p {
+            font-size: 0.8rem;
+            color: #4a6f8a;
+            line-height: 1.4;
+            margin-top: 0.3rem;
+        }
+
+        .contact-info {
+            background: #ffffff;
+            border-radius: 1rem;
+            padding: 1rem 1.2rem;
+            margin: 1.2rem 0 1.5rem 0;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 2rem;
+            border: 1px dashed #ffb74d;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.9rem;
+        }
+
+        .contact-item a {
+            color: #1f6e8c;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .contact-item a:hover {
+            text-decoration: underline;
+        }
+
+        .counseling-link {
+            text-align: center;
+            margin-top: 0.5rem;
+        }
+
+        .btn-counsel {
+            background: #ff9f4a;
+            color: #1f3b4c;
+            font-weight: 800;
+            width: 100%;
+            justify-content: center;
+            text-decoration: none;
+        }
+
+        .btn-counsel:hover {
+            background: #ffb259;
+            transform: scale(1.02);
+        }
+
+        .history-section {
+            margin: 0 2rem 2rem 2rem;
+        }
+
+        .history-table-wrap {
+            overflow-x: auto;
+            border-radius: 1.2rem;
+            background: white;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.85rem;
+        }
+
+        thead {
+            background: #1f4b6e;
+            color: white;
+        }
+
+        th, td {
+            padding: 0.7rem;
+            text-align: left;
+            border-bottom: 1px solid #e2edf7;
+        }
+
+        .disclaimer {
+            font-size: 0.7rem;
+            text-align: center;
+            padding: 1rem;
+            color: #5c7f94;
+        }
+
+        footer {
+            font-size: 0.7rem;
+            text-align: center;
+            padding: 0.8rem;
+            color: #3f708b;
+        }
+
+        @media (max-width: 680px) {
+            .questions-area, .header { padding: 1rem; }
+            .action-bar, .results-panel, .counseling-pathway { margin: 0.5rem 1rem; }
+            .contact-info { flex-direction: column; align-items: center; gap: 0.8rem; }
+            .step { min-width: 100%; }
+        }
+    </style>
+</head>
+<body>
+<div class="dass-container">
+    <div class="header">
+        <h1>
+            <div class="brand">
+                <span>🌿 YMPAI</span>
+                <span>Yayasan Masyarakat Peduli Anak Indonesia</span>
+            </div>
+            <span class="badge">DASS-Y Assessment</span>
+        </h1>
+        <div class="sub">Depression, Anxiety, Stress Scale — versi remaja (7-18 tahun) | screening berbasis bukti</div>
+    </div>
+
+    <div class="info-note">
+        🌟 Untuk setiap pernyataan, pilih seberapa sering hal ini terjadi dalam <strong>1 MINGGU TERAKHIR</strong>.<br>
+        🔹 0 = Tidak pernah &nbsp;&nbsp; 🔹 1 = Kadang-kadang &nbsp;&nbsp; 🔹 2 = Sering &nbsp;&nbsp; 🔹 3 = Hampir selalu
+    </div>
+
+    <div class="progress-wrap">
+        <div class="progress-bar-bg"><div class="progress-bar-fill" id="progressFill"></div></div>
+        <div class="progress-label" id="progressLabel">0 / 21 answered</div>
+    </div>
+
+    <div class="questions-area" id="questionsArea"><div style="text-align:center; padding: 2rem;">Memuat asesmen...</div></div>
+
+    <div class="action-bar">
+        <button id="calculateBtn">📊 Hitung Skor & Insight</button>
+        <button id="resetBtn" class="secondary">🔄 Reset Semua Jawaban</button>
+    </div>
+
+    <div id="resultsPanel" class="results-panel" style="display:none;"></div>
+
+    <!-- ALUR KONSELING -->
+    <div class="counseling-pathway">
+        <div class="counseling-title">🧭 Alur Konseling & Langkah Selanjutnya</div>
+        
+        <div class="step-list">
+            <div class="step">
+                <div class="step-number">1</div>
+                <strong>🧠 Refleksi Diri</strong>
+                <p>Tinjau skor DASS-Y, pahami area yang perlu perhatian</p>
+            </div>
+            <div class="step">
+                <div class="step-number">2</div>
+                <strong>💬 Curhat ke Orang Dewasa</strong>
+                <p>Orang tua, guru BK, atau mentor YMPAI</p>
+            </div>
+            <div class="step">
+                <div class="step-number">3</div>
+                <strong>📞 Hubungi Layanan YMPAI</strong>
+                <p>Konsultasi awal & rujukan layanan</p>
+            </div>
+            <div class="step">
+                <div class="step-number">4</div>
+                <strong>🌱 Konseling Profesional</strong>
+                <p>Psikolog remaja terdekat</p>
+            </div>
+        </div>
+
+        <div class="contact-info">
+            <div class="contact-item">📞 <strong>Hotline / WhatsApp:</strong> <a href="tel:+6285720895262">0857-2089-5262</a></div>
+            <div class="contact-item">✉️ <strong>Email:</strong> <a href="mailto:info@ympai.org">info@ympai.org</a></div>
+        </div>
+
+        <div class="counseling-link">
+            <a href="https://bit.ly/formklienRKKI" target="_blank" rel="noopener noreferrer" style="text-decoration: none;">
+                <button class="btn-counsel">📌 Lihat Alur Konseling Lengkap → bit.ly/formklienRKKI</button>
+            </a>
+            <p style="font-size:0.7rem; margin-top:12px; text-align:center;">🔗 Klik untuk mengakses form pendaftaran klien & panduan konseling YMPAI</p>
+        </div>
+    </div>
+
+    <div class="history-section" id="historySection" style="display:none;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+            <div class="history-title">🗂️ Saved Results History</div>
+            <button id="clearHistoryBtn" class="danger" style="padding: 0.4rem 1rem;">Hapus Semua</button>
+        </div>
+        <div class="history-table-wrap">
+            <table>
+                <thead>
+                    <tr><th>#</th><th>Date & Time</th><th>Depression</th><th>Anxiety</th><th>Stress</th></tr>
+                </thead>
+                <tbody id="historyBody"><tr><td colspan="5" class="history-empty">No records yet.</td></tr></tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="disclaimer">⚠️ Screening ini bukan diagnosis klinis. Jika kamu atau temanmu butuh dukungan segera, hubungi profesional kesehatan mental.</div>
+    <footer>© YMPAI x DASS-Y | Remaja berdaya, mental sehat</footer>
+</div>
+
+<script>
+    // PERTANYAAN BARU - SEMUA MENGGUNAKAN "Aku" dengan kapitalisasi yang benar
+    const dassItems = [
+        { text: "Aku merasa kesal dengan hal-hal kecil", scale: "stress" },
+        { text: "Aku merasa pusing, seperti akan pingsan", scale: "anxiety" },
+        { text: "Aku tidak menikmati apapun", scale: "depression" },
+        { text: "Aku kesulitan bernafas (misalnya bernafas dengan sangat cepat) meskipun tidak sedang berolahraga dan tidak sedang sakit", scale: "anxiety" },
+        { text: "Aku membenci hidupku", scale: "depression" },
+        { text: "Aku bereaksi berlebihan dalam menghadapi situasi", scale: "stress" },
+        { text: "Tanganku terasa gemetar", scale: "anxiety" },
+        { text: "Aku khawatir tentang banyak hal", scale: "anxiety" },
+        { text: "Aku merasa sangat ketakutan", scale: "anxiety" },
+        { text: "Tidak ada hal baik yang bisa aku tunggu-tunggu", scale: "depression" },
+        { text: "Aku mudah merasa jengkel atau kesal", scale: "stress" },
+        { text: "Aku merasa sulit untuk merasa santai", scale: "stress" },
+        { text: "Aku tidak bisa berhenti merasa sedih", scale: "depression" },
+        { text: "Aku merasa kesal ketika ada yang menginterupsi atau menyela aku", scale: "stress" },
+        { text: "Aku merasa seperti akan panik", scale: "anxiety" },
+        { text: "Aku membenci diri aku sendiri", scale: "depression" },
+        { text: "Aku merasa diri aku tidak baik", scale: "depression" },
+        { text: "Aku mudah merasa terusik atau terganggu", scale: "stress" },
+        { text: "Aku bisa merasakan jantung aku berdebar sangat cepat, meskipun aku tidak melakukan olahraga berat", scale: "anxiety" },
+        { text: "Aku merasa takut tanpa alasan yang jelas", scale: "anxiety" },
+        { text: "Aku merasa hidup ini sangat buruk", scale: "depression" }
+    ];
+
+    let answers = new Array(21).fill(null);
+    const STORAGE_KEY = 'dass_y_history';
+
+    function getSeverity(score, type) {
+        if (type === 'depression') {
+            if (score <= 4) return "Normal";
+            if (score <= 6) return "Ringan";
+            if (score <= 10) return "Sedang";
+            if (score <= 13) return "Berat";
+            return "Sangat Berat";
+        }
+        if (type === 'anxiety') {
+            if (score <= 3) return "Normal";
+            if (score <= 5) return "Ringan";
+            if (score <= 9) return "Sedang";
+            if (score <= 12) return "Berat";
+            return "Sangat Berat";
+        }
+        if (type === 'stress') {
+            if (score <= 7) return "Normal";
+            if (score <= 9) return "Ringan";
+            if (score <= 12) return "Sedang";
+            if (score <= 16) return "Berat";
+            return "Sangat Berat";
+        }
+        return "Normal";
+    }
+
+    function getSeverityColor(sev) {
+        const colors = { "Normal": "#c8e6d9", "Ringan": "#fff3cd", "Sedang": "#ffe0b5", "Berat": "#f8d7da", "Sangat Berat": "#f5c6cb" };
+        return colors[sev] || "#e2e3e5";
+    }
+
+    function getRecommendation(sev) {
+        if (sev === "Normal") return "✅ Dalam rentang normal. Pertahankan!";
+        if (sev === "Ringan") return "⚠️ Coba bicara dengan orang terpercaya.";
+        if (sev === "Sedang") return "🟠 Bisa minta bantuan konselor sekolah.";
+        if (sev === "Berat") return "🔴 Dukungan ahli sangat disarankan.";
+        if (sev === "Sangat Berat") return "🆘 Segera hubungi layanan YMPAI.";
+        return "Jaga kesehatan mentalmu.";
+    }
+
+    function renderQuestions() {
+        let html = `<div class="section-caption">📝 Seberapa sering hal ini terjadi dalam seminggu terakhir?</div>`;
+        dassItems.forEach((item, idx) => {
+            const selectedVal = answers[idx];
+            html += `<div class="question-card ${selectedVal !== null ? 'answered' : ''}" data-qidx="${idx}">
+                        <div class="question-text">${idx+1}. ${item.text}</div>
+                        <div class="rating-group" id="group-${idx}">`;
+            [0,1,2,3].forEach(score => {
+                const labels = ["Tidak pernah", "Kadang-kadang", "Sering", "Hampir selalu"];
+                const checked = selectedVal === score ? 'checked' : '';
+                const selectedClass = selectedVal === score ? 'selected' : '';
+                html += `<div class="rating-option ${selectedClass}" data-q="${idx}" data-val="${score}">
+                            <input type="radio" name="q${idx}" value="${score}" id="q${idx}_${score}" ${checked}>
+                            <label for="q${idx}_${score}" class="rating-label">${labels[score]}</label>
+                        </div>`;
+            });
+            html += `</div></div>`;
+        });
+        document.getElementById('questionsArea').innerHTML = html;
+
+        for (let i = 0; i < 21; i++) {
+            document.querySelectorAll(`input[name="q${i}"]`).forEach(radio => {
+                radio.addEventListener('change', (e) => {
+                    answers[i] = parseInt(e.target.value);
+                    updateSelectedStyle(i, answers[i]);
+                    document.querySelector(`.question-card[data-qidx="${i}"]`).classList.add('answered');
+                    updateProgress();
+                });
+            });
+        }
+        document.querySelectorAll('.rating-option').forEach(div => {
+            div.addEventListener('click', (e) => {
+                if (e.target.tagName === 'INPUT' || e.target.tagName === 'LABEL') return;
+                const q = parseInt(div.dataset.q);
+                const v = parseInt(div.dataset.val);
+                const radio = document.getElementById(`q${q}_${v}`);
+                if (radio) { radio.checked = true; answers[q] = v; updateSelectedStyle(q, v); document.querySelector(`.question-card[data-qidx="${q}"]`).classList.add('answered'); updateProgress(); }
+            });
+        });
+        updateProgress();
+    }
+
+    function updateSelectedStyle(q, val) {
+        const group = document.getElementById(`group-${q}`);
+        if (group) {
+            group.querySelectorAll('.rating-option').forEach(opt => {
+                if (parseInt(opt.dataset.val) === val) opt.classList.add('selected');
+                else opt.classList.remove('selected');
+            });
+        }
+    }
+
+    function updateProgress() {
+        const answered = answers.filter(a => a !== null).length;
+        document.getElementById('progressFill').style.width = `${(answered/21)*100}%`;
+        document.getElementById('progressLabel').innerText = `${answered} / 21 answered`;
+    }
+
+    function computeResults() {
+        if (answers.some(a => a === null)) {
+            alert("⚠️ Harap jawab semua 21 pertanyaan terlebih dahulu!");
+            return;
+        }
+        let dep=0, anx=0, str=0;
+        dassItems.forEach((item, i) => {
+            if (item.scale === 'depression') dep += answers[i];
+            else if (item.scale === 'anxiety') anx += answers[i];
+            else str += answers[i];
+        });
+        const dSev = getSeverity(dep, 'depression');
+        const aSev = getSeverity(anx, 'anxiety');
+        const sSev = getSeverity(str, 'stress');
+
+        const panel = document.getElementById('resultsPanel');
+        panel.innerHTML = `
+            <div style="font-size:1.5rem; font-weight:800;">📋 Hasil Asesmen YMPAI</div>
+            <div class="score-grid">
+                <div class="score-card"><div class="score-category">😔 Depresi</div><div class="score-value">${dep}/21</div><div style="background:${getSeverityColor(dSev)}; display:inline-block; padding:2px 12px; border-radius:20px;">${dSev}</div></div>
+                <div class="score-card"><div class="score-category">😰 Kecemasan</div><div class="score-value">${anx}/21</div><div style="background:${getSeverityColor(aSev)}; display:inline-block; padding:2px 12px; border-radius:20px;">${aSev}</div></div>
+                <div class="score-card"><div class="score-category">⚡ Stres</div><div class="score-value">${str}/21</div><div style="background:${getSeverityColor(sSev)}; display:inline-block; padding:2px 12px; border-radius:20px;">${sSev}</div></div>
+            </div>
+            <div class="interpretation">
+                <strong>💡 Rekomendasi:</strong><br>
+                • Depresi: ${getRecommendation(dSev)}<br>
+                • Kecemasan: ${getRecommendation(aSev)}<br>
+                • Stres: ${getRecommendation(sSev)}<br><br>
+                🌈 <strong>Ingat:</strong> Skor ini hanya gambaran umum. Jika merasa terbebani, lihat Alur Konseling di bawah.
+            </div>`;
+        panel.style.display = 'block';
+        panel.scrollIntoView({ behavior: 'smooth' });
+
+        const history = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
+        history.push({ date: new Date().toLocaleString(), dep, anx, str, dSev, aSev, sSev });
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(history));
+        renderHistory();
+    }
+
+    function renderHistory() {
+        const history = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
+        const section = document.getElementById('historySection');
+        const tbody = document.getElementById('historyBody');
+        if (history.length === 0) {
+            section.style.display = 'none';
+            return;
+        }
+        section.style.display = 'block';
+        tbody.innerHTML = history.map((h, i) => `
+            <tr>
+                <td>${i+1}</td>
+                <td>${h.date}</td>
+                <td>${h.dep} (${h.dSev})</td>
+                <td>${h.anx} (${h.aSev})</td>
+                <td>${h.str} (${h.sSev})</td>
+            </tr>
+        `).join('');
+    }
+
+    function resetAll() {
+        answers.fill(null);
+        renderQuestions();
+        document.getElementById('resultsPanel').style.display = 'none';
+        window.scrollTo({ top: 0 });
+    }
+
+    document.getElementById('calculateBtn').addEventListener('click', computeResults);
+    document.getElementById('resetBtn').addEventListener('click', resetAll);
+    document.getElementById('clearHistoryBtn').addEventListener('click', () => {
+        if (confirm('Hapus semua riwayat? Tindakan ini tidak bisa dibatalkan.')) {
+            localStorage.removeItem(STORAGE_KEY);
+            renderHistory();
+        }
+    });
+
+    renderQuestions();
+    renderHistory();
+</script>
+</body>
+</html>
